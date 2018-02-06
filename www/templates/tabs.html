@@ -1,0 +1,18 @@
+<!--
+Create tabs with an icon and label, using the tabs-dark style (you can override style in scss file).
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-dark tabs-color-light">
+
+    <!-- Dashboard Tab title="Dashboard"-->
+    <ion-tab icon-off="ion-home" icon-on="ion-home" href="#/dash">
+        <ion-nav-view name="app-dash"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Content Tab title="Content"-->
+    <ion-tab icon-off="ion-drag" icon-on="ion-drag" href="#/content">
+        <ion-nav-view name="app-content"></ion-nav-view>
+    </ion-tab>
+
+</ion-tabs>

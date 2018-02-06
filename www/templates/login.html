@@ -1,0 +1,20 @@
+<ion-view>
+    <ion-nav-title>Please sign in</ion-nav-title>
+    <ion-content class="padding">
+        <ion-item>
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" autocapitalize="off" autocorrect="off" placeholder="Username" ng-model="loginCtrl.user.username">
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="Password" ng-model="loginCtrl.user.password">
+                </label>
+            </div>
+            <button class="button button-block button-dark" ng-click="loginCtrl.login()">
+                Login
+            </button>
+        </ion-item>
+        <p class="padding">Please click on register below if you are not already registered with us.</p>
+        <button class="button button-assertive button-block" ui-sref="app.register">Register</button>
+    </ion-content>
+</ion-view>

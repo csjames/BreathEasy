@@ -1,0 +1,7 @@
+<ion-view>
+    <ion-nav-title>{{infoCtrl.item.label}}</ion-nav-title>
+    <ion-content>
+        <h3 class="padding" style='color: #356E88'>{{infoCtrl.item.content.title}}</h3>
+        <div class="padding" ng-bind-html="infoCtrl.item.content.renderedText"></div>
+    </ion-content>
+</ion-view>

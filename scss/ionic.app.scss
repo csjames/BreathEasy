@@ -6,7 +6,7 @@ For example, you might change some of the default colors:
 
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
+
 $calm:                            #11c1f3 !default;
 $balanced:                        #33cd5f !default;
 $energized:                       #ffc900 !default;
@@ -17,6 +17,10 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
+
+$positive:                        #0072CE !default;
+$dark:                        #0072CE !default;
+
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";

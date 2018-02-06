@@ -1,11 +1,52 @@
 {
-  "name": "AsthmaTest1",
-  "version": "0.0.1",
-  "description": "An Ionic project",
-  "devDependencies": {
-    "gulp": "^3.5.6",
-    "gulp-clean-css": "^3.7.0",
-    "gulp-rename": "^1.2.0",
-    "gulp-sass": "^3.1.0"
-  }
+    "name": "AsthmaTest1",
+    "version": "0.0.1",
+    "description": "An Ionic project",
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "gulp-clean-css": "^3.7.0",
+        "gulp-rename": "^1.2.0",
+        "gulp-sass": "^3.1.0"
+    },
+    "dependencies": {
+        "@ionic-native/vibration": "^4.5.3",
+        "@ionic/storage": "^2.1.3",
+        "bower": "^1.8.2",
+        "cordova-android": "6.2.2",
+        "cordova-plugin-app-event": "^1.2.1",
+        "cordova-plugin-badge": "^0.8.7",
+        "cordova-plugin-console": "^1.0.5",
+        "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-is-debug": "^1.0.0",
+        "cordova-plugin-local-notification": "^0.9.0-beta.2",
+        "cordova-plugin-local-notifications": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
+        "cordova-plugin-mauron85-background-geolocation": "^2.2.5",
+        "cordova-plugin-network-information": "^1.3.3",
+        "cordova-plugin-splashscreen": "^4.0.3",
+        "cordova-plugin-statusbar": "^2.2.1",
+        "cordova-plugin-vibration": "^3.0.1",
+        "cordova-plugin-whitelist": "^1.3.1",
+        "de.appplant.cordova.plugin.local-notification": "https://github.com/katzer/cordova-plugin-local-notifications.git",
+        "ionic-plugin-keyboard": "^2.2.1",
+        "ng-cordova": "^0.1.27-alpha"
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-network-information": {},
+            "de.appplant.cordova.plugin.local-notification": {},
+            "cordova-plugin-app-event": {},
+            "cordova-plugin-console": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-mauron85-background-geolocation": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-whitelist": {},
+            "ionic-plugin-keyboard": {},
+            "cordova-plugin-vibration": {},
+            "cordova-plugin-is-debug": {}
+        },
+        "platforms": [
+            "android"
+        ]
+    }
 }

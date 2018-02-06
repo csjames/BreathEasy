@@ -1,0 +1,59 @@
+<ion-view>
+    <ion-nav-title>{{plannerReviewCtrl.item.label}}</ion-nav-title>
+    <ion-content>
+        <div ng-if="plannerReviewCtrl.showFeedback==false">
+            <h3>{{plannerReviewCtrl.item.content.headerText}}</h3>
+            <div ng-if="plannerReviewCtrl.item.content.type=='text'">
+                <form ng-submit="plannerReviewCtrl.collectData()">
+
+                    <ion-list ng-repeat="plan in plannerReviewCtrl.renderedPlans track by $index" ng-if="plannerReviewCtrl.storedPlans.length>0">
+                        <ion-item>
+                            <ion-checkbox class="item-text-wrap" id='{{$index}}' ng-model="plannerReviewCtrl.userFeedback[$index]"> {{plan}}</ion-checkbox>
+                        </ion-item>
+                    </ion-list>
+                    <div ng-if="plannerReviewCtrl.renderedPlans.length==0">Please create some plans first to be able to review them. </div>
+
+
+                    <div class="list box" ng-if="plannerReviewCtrl.renderedPlans.length>0">
+                        <button class="button button-block button-positive" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div ng-if="plannerReviewCtrl.item.content.type=='multiple-choice'">
+                <form ng-submit="plannerReviewCtrl.collectData()">
+
+                    <ion-list ng-repeat="option in plannerReviewCtrl.renderedPlans" ng-if="plannerReviewCtrl.renderedPlans.length>0">
+                        <ion-item>
+                            <ion-checkbox class="item-text-wrap" id='{{$index}}' ng-model="plannerReviewCtrl.userFeedback[option]"> {{option}}</ion-checkbox>
+                        </ion-item>
+                    </ion-list>
+                    <div ng-if="plannerReviewCtrl.renderedPlans.length==0">Please create some plans first to be able to review them. click 'Back'</div>
+
+
+                    <div class="list box" ng-if="plannerReviewCtrl.renderedPlans.length>0">
+                        <button class="button button-block button-positive" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div ng-if="plannerReviewCtrl.showFeedback==true">
+            <div ng-if="plannerReviewCtrl.item.content.type=='text'">
+                <h3>{{plannerReviewCtrl.item.content.feedback.title}}</h3>
+                <div ng-bind-html="plannerReviewCtrl.item.content.feedback.renderedText">{{plannerReviewCtrl.item.content.feedback.renderedText}}</div>
+
+            </div>
+            <div ng-if="plannerReviewCtrl.item.content.type=='multiple-choice'">
+                <h3>{{plannerReviewCtrl.item.content.feedback.title}}</h3>
+                <div ng-bind-html="plannerReviewCtrl.item.content.feedback.renderedText">{{plannerReviewCtrl.item.content.feedback.renderedText}}</div>
+
+            </div>
+
+            <div class="list box">
+                <button class="button button-block button-positive" type="button" ng-click="plannerReviewCtrl.editPlans()">Edit Plan(s)</button>
+            </div>
+            <div class="list box">
+                <button class="button button-block button-positive" ng-click="plannerReviewCtrl.endReview()" type="button">Done</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

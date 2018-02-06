@@ -1,0 +1,37 @@
+<ion-view>
+    <ion-nav-title>{{plannerCtrl.item.label}}</ion-nav-title>
+    <ion-content>
+        <ion-item>
+            <h4>{{plannerCtrl.item.content.headerText}}</h4>
+            <h>{{plannerCtrl.item.content.title}}</h>
+            <p>{{plannerCtrl.item.content}}</p>
+            <ion-textarea></ion-textarea>
+        </ion-item>
+        <form ng-submit="plannerCtrl.collectData()">
+            <ion-list ng-if="plannerCtrl.item.content.type=='text'" ng-repeat="plan in plannerCtrl.plans">
+                <div style="border-style: solid;border-width: 2px;border-color: black;">
+                    <div>Plan {{$index+1}}</div>
+                    <!-- {{itemCtrl.outerIndex = $index}}-->
+                    <ion-list ng-repeat="field in plan">
+                        <label>{{plannerCtrl.getKeyValuePair(field).key}}</label>
+                        <input type="text" style="background-color:#E6E6FA; width:90%" size="50" ng-init="plannerCtrl.editData[$parent.$index][plannerCtrl.getKeyValuePair(field).key]=plannerCtrl.getKeyValuePair(field).value" ng-model="plannerCtrl.editData[$parent.$index][plannerCtrl.getKeyValuePair(field).key]" />
+                        <label>{{plannerCtrl.item.content.fields[$index].description}}</label>
+                    </ion-list>
+                </div>
+            </ion-list>
+            <ion-list ng-if="plannerCtrl.item.content.type=='multiple-choice'" ng-repeat="planelement in plannerCtrl.item.content.options">
+                <ion-item>
+                    <ion-checkbox class="item-text-wrap" type="checkbox" id='{{$index}}' ng-init="plannerCtrl.userFeedback[$index]=plannerCtrl.selectedArray[$index]" ng-model="plannerCtrl.userFeedback[$index]">{{planelement}}</ion-checkbox>
+                </ion-item>
+            </ion-list>
+
+            <div class="list box">
+
+                <button class="button button-block button-positive" type="button" ng-click="plannerCtrl.addFieldSet()" ng-if="plannerCtrl.item.content.type=='text' &&(plannerCtrl.planCount<plannerCtrl.maxPlans)">Add another plan</button>
+            </div>
+            <div class="list box">
+                <button class="button button-block button-positive" type="submit">Submit</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

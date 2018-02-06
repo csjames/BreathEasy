@@ -1,0 +1,204 @@
+<ion-view>
+    <ion-nav-buttons side="left">
+        <button class="button button-energized button-royal no-animation" ng-click="sequenceCtrl.previous()" ng-show="sequenceCtrl.slideIndex > 0">
+            Previous
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-energized button-royal no-animation" ng-click="sequenceCtrl.next()" ng-show="sequenceCtrl.slideIndex != sequenceCtrl.numberOfPages -1">
+            Next
+        </button>
+    </ion-nav-buttons>
+    <ion-content scroll="false">
+        <ion-slides options="options" slider="data.slider">
+            <ion-slide-page ng-repeat="item in sequenceCtrl.items" ng-if="sequenceCtrl.isNavigable(item)">
+                <ion-content scroll="true">
+
+                    <div ng-switch="item.type">
+
+                        <div ng-switch-when="info">
+                            <img ng-src="img/arkbanner.jpg" style="width:100%;height:auto;margin:auto;" />
+                            <h3 class="padding" id="ARKTitle">{{ ::item.content.title}}</h3>
+                            <div class="padding" ng-bind-html="item.content.text"></div>
+                        </div>
+
+                        <div ng-switch-when="menu">
+                            <ion-item class="item item-icon-right padding" ng-click="sequenceCtrl.setItemData(item)" ui-sref="app.menu">
+                                {{item.label}}
+                                <i class="icon ion-chevron-right icon-accessory"></i>
+                            </ion-item>
+                        </div>
+
+                        <div ng-switch-when="sequence">
+                            <ion-item class="item item-icon-right" ng-click="sequenceCtrl.setItemData(item)" href="#/{{item.type}}/{{item.id}}">
+                                {{item.label}}
+                                <i class="icon ion-chevron-right icon-accessory"></i>
+                            </ion-item>
+                        </div>
+
+                        <div ng-switch-when="diary">
+                            <p>diary type</p>
+                        </div>
+
+                        <div ng-switch-when="media">
+                            <div class="padding" ng-repeat="file in item.content.files">
+                                <img ng-src="img/{{file.filename}}" alt="Description" />
+                            </div>
+                        </div>
+
+                        <div ng-switch-when="planner">
+                            <ion-item>
+                                <h4>{{item.content.headerText}}</h4>
+                                <h>{{item.content.title}}</h>
+                                <ion-textarea></ion-textarea>
+                            </ion-item>
+                            <form ng-submit="sequenceCtrl.collectDataPlanner()">
+                                <ion-list ng-if="item.content.type=='text'" ng-repeat="plan in sequenceCtrl.plans">
+                                    <div style="border-style: solid;border-width: 2px;border-color: black;">
+                                        <div>Plan {{$index+1}}</div>
+                                        <!-- {{itemCtrl.outerIndex = $index}}-->
+                                        <ion-list ng-repeat="field in plan">
+                                            <label>{{sequenceCtrl.getKeyValuePair(field).key}}</label>
+                                            <input type="text" style="background-color:#E6E6FA; width:90%" size="50" ng-init="sequenceCtrl.editData[$parent.$index][sequenceCtrl.getKeyValuePair(field).key]=sequenceCtrl.getKeyValuePair(field).value" ng-model="sequenceCtrl.editData[$parent.$index][sequenceCtrl.getKeyValuePair(field).key]" />
+                                            <label>{{item.content.fields[$index].description}}</label>
+                                        </ion-list>
+                                    </div>
+                                </ion-list>
+                                <ion-list ng-if="item.content.type=='multiple-choice'" ng-repeat="planelement in sequenceCtrl.item.content.options">
+                                    <ion-item>
+                                        <ion-checkbox class="item-text-wrap" type="checkbox" id='{{$index}}' ng-init="sequenceCtrl.userFeedback[$index]=sequenceCtrl.selectedArray[$index]" ng-model="sequenceCtrl.userFeedback[$index]">{{planelement}}</ion-checkbox>
+                                    </ion-item>
+                                </ion-list>
+                                <div class="list box">
+                                    <button class="button button-block button-dark" type="button" ng-click="sequenceCtrl.addFieldSet()" ng-if="item.content.type=='text' &&(sequenceCtrl.planCount<sequenceCtrl.maxPlans)">Add another plan</button>
+                                </div>
+                                <div class="list box">
+                                    <button class="button button-block button-dark" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div ng-switch-when="planner_review">
+                            <div ng-if="sequenceCtrl.showFeedback==false">
+                                <h3>{{item.content.headerText}}</h3>
+                                <div ng-if="item.content.type=='text'">
+                                    <form ng-submit="sequenceCtrl.collectDataPlannerReview()">
+
+                                        <ion-list ng-repeat="plan in sequenceCtrl.renderedPlans track by $index" ng-if="sequenceCtrl.storedPlans.length>0">
+                                            <ion-item>
+                                                <ion-checkbox class="item-text-wrap" id='{{$index}}' ng-model="sequenceCtrl.userFeedback[$index]"> {{plan}}</ion-checkbox>
+                                            </ion-item>
+                                        </ion-list>
+                                        <div ng-if="sequenceCtrl.renderedPlans.length==0">Please create some plans first to be able to review them. </div>
+
+
+                                        <div class="list box" ng-if="sequenceCtrl.renderedPlans.length>0">
+                                            <button class="button button-block button-dark" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div ng-if="item.content.type=='multiple-choice'">
+                                    <form ng-submit="sequenceCtrl.collectData()">
+
+                                        <ion-list ng-repeat="option in sequenceCtrl.renderedPlans" ng-if="sequenceCtrl.renderedPlans.length>0">
+                                            <ion-item>
+                                                <ion-checkbox class="item-text-wrap" id='{{$index}}' ng-model="sequenceCtrl.userFeedback[option]"> {{option}}</ion-checkbox>
+                                            </ion-item>
+                                        </ion-list>
+                                        <div ng-if="sequenceCtrl.renderedPlans.length==0">Please create some plans first to be able to review them. click 'Back'</div>
+
+
+                                        <div class="list box" ng-if="sequenceCtrl.renderedPlans.length>0">
+                                            <button class="button button-block button-dark" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div ng-if="sequenceCtrl.showFeedback==true">
+                                <div ng-if="item.content.type=='text'">
+                                    <h3>{{item.content.feedback.title}}</h3>
+                                    <div ng-bind-html="sequenceCtrl.item.content.feedback.renderedText">{{sequenceCtrl.item.content.feedback.renderedText}}</div>
+
+                                </div>
+                                <div ng-if="item.content.type=='multiple-choice'">
+                                    <h3>{{item.content.feedback.title}}</h3>
+                                    <div ng-bind-html="sequenceCtrl.item.content.feedback.renderedText">{{sequenceCtrl.item.content.feedback.renderedText}}</div>
+
+                                </div>
+
+                                <div class="list box">
+                                    <button class="button button-block button-dark" type="button" ng-click="sequenceCtrl.editPlans()">Edit Plan(s)</button>
+                                </div>
+                                <div class="list box">
+                                    <button class="button button-block button-dark" ng-click="sequenceCtrl.endReview()" type="button">Done</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-switch-when="survey">
+                            <form name="mySurveyForm" ng-submit="sequenceCtrl.collectData(item.id, true)">
+                                <div ng-bind-html="item.description"></div>
+                                <ion-list ng-repeat="surveyItem in item.content.questions">
+                                    <div class="item item-divider item-text-wrap" ng-bind-html="surveyItem.title">
+
+                                    </div>
+                                    <ion-list ng-if="surveyItem.type==='single-choice'">
+                                        <ion-item class="item item-text-wrap">{{ ::surveyItem.text}}</ion-item>
+                                        <ion-radio class="item item-text-wrap" ng-repeat="items in surveyItem.choices" ng-model="sequenceCtrl.userFeedbackSingleValue[surveyItem.question_id]" ng-value="items.choice" required>{{ ::items.choice}} {{ ::items.detail}}</ion-radio>
+                                        <ion-item ng-if="false">Selected Value: {{sequenceCtrl.userFeedbackSingleValue[surveyItem.question_id]}}</ion-item>
+                                    </ion-list>
+
+                                    <ion-list ng-if="surveyItem.type==='multiple-choice'">
+                                        <ion-item>{{ ::surveyItem.text}}</ion-item>
+                                        <ion-checkbox ng-repeat="itemm in surveyItem.choices" ng-model="sequenceCtrl.userFeedback[surveyItem.title][itemm.choice]" ng-checked="itemm.choice">{{ ::itemm.choice}} {{ ::itemm.detail}}</ion-checkbox>
+                                        <ion-item>Selected Values: {{sequenceCtrl.userFeedback}}</ion-item>
+                                    </ion-list>
+
+                                    <ion-item ng-if="surveyItem.type==='free-text'">
+                                        <input type="text" ng-value="surveyItem.text" ng-model="sequenceCtrl.userFeedbackSingleValue[surveyItem.question_id]" placeholder="Enter details" required></input>
+                                    </ion-item>
+
+                                    <ion-item ng-if="surveyItem.type==='rating-list'">
+                                        <ion-item class="item item-text-wrap">{{::surveyItem.text}}</ion-item>
+                                        <label class="item item-input item-select" for="repeatSelect">
+                                            <div class="input-label">
+                                                Please select your answer:
+                                            </div>
+
+                                        <select name="repeatSelect" id="repeatSelect" ng-model="sequenceCtrl.userFeedbackSingleValue[surveyItem.question_id]" required>
+                                            <option ng-repeat="choice in surveyItem.ratings[0].choices" ng-value="choice">{{choice}}</option>
+                                        </select>
+                                            </label>
+                                    </ion-item>
+
+                                    <ion-item>
+                                        <div>{{ ::surveyItem.footerText}}</div>
+                                    </ion-item>
+                                </ion-list>
+                                <div class="list box">
+                                    <button class="button button-block button-dark" type="submit" ng-disabled="mySurveyForm.$invalid">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div ng-switch-default>
+                            <p>Unknown element type!</p>
+                            {{::item.type}}
+                        </div>
+
+                    </div>
+
+                </ion-content>
+            </ion-slide-page>
+        </ion-slides>
+        <div class="custom-swiper-pagination swiper-pagination"></div>
+        <pre ng-if="false">
+      <!-- Here's some values to keep an eye on in the sample in order to understand $state and $stateParams -->
+      $state = {{$state.current.name}}
+      $stateParams = {{$stateParams}}
+      $state full url = {{ $state.$current.url.source }}
+      <!-- $state.$current is not a public api, we are using it to
+           display the full url for learning purposes-->
+    </pre>
+    </ion-content>
+</ion-view>

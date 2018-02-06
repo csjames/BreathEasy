@@ -1,0 +1,32 @@
+<ion-view>
+    <ion-nav-buttons side="left">
+        <a ui-sref="app.userlogin" ng-disabled="true" ng-hide="dashCtrl.authorised">
+            <button class="button button-energized button-clear">
+                Login
+            </button>
+        </a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-energized button-clear" ng-click="dashCtrl.logout()">
+            Logout
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="dashCtrl.refreshData()">
+        </ion-refresher>
+        <img ng-hide="true" ng-src="img/arkbanner.jpg" style="width:100%;height:auto;margin:auto;" />
+        <ion-toggle ng-init="dashCtrl.monitor()" ng-model="dashCtrl.trackON" ng-checked="dashCtrl.trackON" ng-change="dashCtrl.updatePreferences()" toggle-class="toggle-dark" ng-hide="false">
+            GPS Tracking
+        </ion-toggle>
+        <div ng-hide="true">
+            <h2>About LifeGuide Toolbox</h2>
+            <p>The LifeGuide research programme is a multidisciplinary initiative at the University of Southampton.</p>
+            <p>We have developed a unique set of open source software tools, the ‘LifeGuide’, that allows intervention designers with no experience of programming to create interactive web-based interventions to support healthy behaviour.</p>
+            <p>Using this software platform, we have been developing and successfully trialling numerous interventions for PC, tablet and smart phone, including public health interventions (e.g. for weight management, physical activity support, hand hygiene, smoking cessation) and illness management interventions (e.g. for hypertension, diabetes, cancer, back pain, dizziness, fatigue, stress, stroke, respiratory conditions, eczema and irritable bowel).</p>
+            <p>Our interventions are now being disseminated in the UK and internationally by the NHS, public health teams and education websites for health professionals.</p>
+            <span class="text-muted">Copyright University of Southampton &copy;</span>
+        </div><p> </p>
+        <div ng-bind-html="dashCtrl.text1"></div>
+        <div ng-bind-html="dashCtrl.text2"></div>
+    </ion-content>
+</ion-view>

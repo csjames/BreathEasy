@@ -1,0 +1,49 @@
+<ion-view>
+    <ion-nav-title>Create a new account</ion-nav-title>
+    <ion-content class="padding">
+<!--         <p>
+            <p>Please user your Trust email address as username</p>
+        </p> -->
+        <div class="list">
+            <label ng-show="false" class="item item-input item-floating-label">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Name" ng-model="registerCtrl.user.name">
+            </label>
+            <label ng-show="false" class="item item-input item-floating-label">
+                <span class="input-label">Surname</span>
+                <input type="text" placeholder="Surname" ng-model="registerCtrl.user.surname">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Username</span>
+                <input type="text" placeholder="Username" ng-model="registerCtrl.user.username">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Password</span>
+                <input type="password" placeholder="Password" ng-model="registerCtrl.user.password">
+            </label>
+            <label ng-show="false" class="item item-input item-floating-label">
+                <span class="input-label">Trust</span>
+                <input type="password" placeholder="Trust" ng-model="registerCtrl.user.organisation">
+            </label>
+            <label ng-show="false" class="item item-input item-floating-label">
+                <span class="input-label">Intervention ID</span>
+                <input type="text" placeholder="Intervention ID" ng-model="registerCtrl.user.interventionID">
+            </label>
+            <label ng-show="false" class="item item-input item-floating-label">
+                <span class="input-label">Email</span>
+                <input type="email" placeholder="Email" ng-model="registerCtrl.user.email">
+            </label>
+            <label ng-show="false" class="item item-input item-floating-label">
+                <span class="input-label">Telephone</span>
+                <input type="number" placeholder="Telephone" ng-model="registerCtrl.user.tel">
+            </label>
+            <label ng-show="false" class="item item-input item-floating-label">
+                <span class="input-label">Location</span>
+                <input type="text" placeholder="City/Town" ng-model="registerCtrl.user.location">
+            </label>
+        </div>
+        <button class="button button-block button-dark" ng-click="registerCtrl.signup()">
+            Sign up
+        </button>
+    </ion-content>
+</ion-view>

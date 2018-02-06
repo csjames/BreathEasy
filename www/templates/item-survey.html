@@ -1,0 +1,52 @@
+<ion-view>
+    <ion-nav-title>{{ ::surveyCtrl.item.label}}</ion-nav-title>
+    <ion-content>
+
+        <form name="surveyForm" ng-submit="surveyCtrl.collectData()">
+            <ion-list ng-repeat="surveyItem in surveyCtrl.item.content.questions track by $index">
+                <div class="item item-divider">
+                    {{ ::surveyItem.title}}
+                </div>
+                <ion-list ng-if="surveyItem.type==='single-choice'">
+                    <ion-item class="item item-text-wrap">{{ ::surveyItem.text}}</ion-item>
+                    <ion-radio ng-repeat="item in surveyItem.choices" ng-model="surveyCtrl.userFeedback[surveyItem.question_id]" ng-value="item.choice" required name="{{surveyItem.question_id}}">{{item.choice}} {{item.detail}}</ion-radio>
+                    <ion-item ng-if="false">Value: {{surveyCtrl.userFeedback[surveyItem.question_id]}}</ion-item>
+                </ion-list>
+
+
+                <ion-list ng-if="surveyItem.type==='multiple-choice'">
+                    <ion-item>{{ ::surveyItem.text}}</ion-item>
+                    <ion-checkbox ng-repeat="item in surveyItem.choices" ng-model="item.choice" ng-checked="item.choice">{{item.choice}} {{item.detail}}</ion-checkbox>
+                    <ion-item ng-show="false">Values: {{surveyItem.choices}}</ion-item>
+                </ion-list>
+
+                <ion-item ng-if="surveyItem.type==='free-text'">
+                    <h3>{{ ::surveyItem.title}}</h3>
+                    <input type="text" maxlength="70" ng-model="surveyCtrl.text"></input>
+                </ion-item>
+
+                <ion-list ng-if="surveyItem.type==='rating-list'">
+                    <ion-item class="item item-text-wrap">{{ ::surveyItem.text}}</ion-item>
+                    <div class="range range-positive">
+                        <i>{{ ::surveyItem.ratings[0].choices[0]}}</i>
+                        <input type="range" name="myRange" min="-3" max="3" step="1" ng-model="surveyCtrl.userFeedback[surveyItem.question_id].ratings[0].choices" required>
+                        <i>{{ ::surveyItem.ratings[0].choices[surveyItem.ratings[0].maxvalue -1]}}</i>
+                    </div>
+                    <p ng-if="false">Value: {{surveyItem.ratings[0].choices}}</p>
+                </ion-list>
+
+                <ion-item>
+                    <div>{{ ::surveyItem.footerText}}</div>
+                </ion-item>
+            </ion-list>
+            <div>
+                <p ng-show="surveyForm.myRange.$error.required">Please select a range value</p>
+                <p ng-show="surveyCtrl.formStored">Thank you for filling in the form</p>
+            </div>
+            <div class="list box">
+                <button class="button button-block button-dark" type="submit" ng-disabled="surveyForm.$invalid">Submit</button>
+            </div>
+        </form>
+    </ion-content>
+
+</ion-view>

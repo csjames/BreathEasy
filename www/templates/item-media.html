@@ -1,0 +1,9 @@
+<ion-view>
+    <ion-nav-title>{{mediaCtrl.item.label}}</ion-nav-title>
+    <ion-content scroll="true">
+        <h3>{{mediaCtrl.item.content.title}}</h3>
+        <div class="padding" ng-repeat="file in mediaCtrl.item.content.files">
+            <img ng-src="img/{{file.filename}}" style="width:100%;height:auto;margin:auto;" />
+        </div>
+    </ion-content>
+</ion-view>

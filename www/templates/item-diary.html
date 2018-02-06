@@ -1,0 +1,10 @@
+<ion-view>
+    <ion-nav-title>{{diaryCtrl.item.label}}</ion-nav-title>
+    <ion-content>
+        <h4>{{diaryCtrl.item.content.title}}</h4>
+        <p>{{diaryCtrl.item.content.text}}</p>
+        <ion-item>{{diaryCtrl.item.content.label_header}}
+            <ion-list ng-repeat="item in diaryCtrl.item.content.labels">{{item}}</ion-list>
+        </ion-item>
+    </ion-content>
+</ion-view>
